@@ -1,11 +1,11 @@
-
+Task.wait()
 local P = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
 
 repeat wait() until P.LocalPlayer
 repeat wait() until P.LocalPlayer.Character
 repeat wait() until P.LocalPlayer.Character.HumanoidRootPart
-wait()
+
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local player = game:GetService("Players").LocalPlayer
