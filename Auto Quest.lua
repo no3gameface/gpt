@@ -1,15 +1,17 @@
 local P = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
-wait(0.5)
+
 repeat wait() until P.LocalPlayer
 repeat wait() until P.LocalPlayer.Character
 repeat wait() until P.LocalPlayer.Character.HumanoidRootPart
-
+wait()
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local player = game:GetService("Players").LocalPlayer
 local questsFolder = player.PlayerGui.MainGui.MainFrames.Quests.Content
 local GlobalInit = ReplicatedStorage.Modules.GlobalInit
+
+local innerFrame -- Define innerFrame in a higher scope
 
 local function getQuestData()
     local questData = {}
@@ -65,11 +67,10 @@ local function createUI()
     squareCorner.CornerRadius = UDim.new(0.1, 0)
     squareCorner.Parent = frame
 
-    local innerFrame = Instance.new("Frame")
+    innerFrame = Instance.new("Frame")  -- Assign to the outer variable
     innerFrame.Size = UDim2.new(0.98, 0, 0.98, 0)
     innerFrame.Position = UDim2.new(0.01, 0, 0.01, 0)
     innerFrame.BackgroundTransparency = 0
-    
     innerFrame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
     innerFrame.Parent = frame
 
