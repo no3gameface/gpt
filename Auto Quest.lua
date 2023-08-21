@@ -37,6 +37,7 @@ if _G.AutoQuestToggle then
 
         return questData
     end
+
     local function createUI()
         local screenGui = Instance.new("ScreenGui")
         screenGui.Name = "QuestProgressUI"
@@ -62,7 +63,8 @@ if _G.AutoQuestToggle then
             questLabel.Size = UDim2.new(1, 0, 0, 60)
             questLabel.Position = UDim2.new(0, 0, 0, yOffset)  -- Set the position based on yOffset
             questLabel.BackgroundTransparency = 1
-            questLabel.Text = quest.title .. ": " .. quest.percentage .. "%\nReward: " .. quest.reward .. "\nDescription: " .. quest.description
+            local winsNeeded = math.ceil(100 / quest.percentage) - 1
+            questLabel.Text = quest.title .. ": " .. quest.percentage .. "%\nReward: " .. quest.reward .. "\nTotal Wins Needed: " .. winsNeeded
             questLabel.TextWrapped = true
             questLabel.TextColor3 = Color3.new(1, 1, 1)
             questLabel.Parent = scrollFrame
