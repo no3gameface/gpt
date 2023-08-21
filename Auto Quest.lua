@@ -103,7 +103,7 @@ if _G.AutoQuestToggle then
             yOffset = yOffset + 70
         end
     end
- local function getTimeLeftForRefresh()
+local function getTimeLeftForRefresh()
     local timeLeftText = player.PlayerGui.MainGui.MainFrames.Quests.Top.TimeLeft.Text
     local time = timeLeftText:match("Refresh Available In (%d+:%d+:%d+)")
     return time
