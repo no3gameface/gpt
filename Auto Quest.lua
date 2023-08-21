@@ -64,7 +64,7 @@ if _G.AutoQuestToggle then
             questLabel.BackgroundTransparency = 1
             questLabel.Text = quest.title .. ": " .. quest.percentage .. "%\nReward: " .. quest.reward .. "\nDescription: " .. quest.description
             questLabel.TextWrapped = true
-            questLabel.TextColor3 = Color3.new(0, 0, 0)
+            questLabel.TextColor3 = Color3.new(1, 1, 1)
             questLabel.Parent = scrollFrame
 
             yOffset = yOffset + 70  -- Increment yOffset for the next label
@@ -101,6 +101,6 @@ if _G.AutoQuestToggle then
         local questData = getQuestData()
         autoClaimQuests(questData)
         refreshQuestsIfEmpty(questData)
-        wait(5)
+        wait(0)
     end
 end
