@@ -103,14 +103,21 @@ if _G.AutoQuestToggle then
             yOffset = yOffset + 70
         end
     end
-   
-local function getTimeLeftForRefresh()
+ local function getTimeLeftForRefresh()
     local timeLeftText = player.PlayerGui.MainGui.MainFrames.Quests.Top.TimeLeft.Text
     local time = timeLeftText:match("Refresh Available In (%d+:%d+:%d+)")
     return time
 end
 
--- MODIFY the existing refreshQuestsIfEmpty function with this new version
+local function isQuestsFolderEmpty()
+    for _, child in ipairs(questsFolder:GetChildren()) do
+        if not child:IsA("UIListLayout") then
+            return false
+        end
+    end
+    return true
+end
+
 local function refreshQuestsIfEmpty()
     if isQuestsFolderEmpty() then
         local timeLeft = getTimeLeftForRefresh()
@@ -131,29 +138,17 @@ local function refreshQuestsIfEmpty()
     end
 end
 
-
-
-    
-    local function autoClaimQuests(questData)
-        for _, quest in ipairs(questData) do
-            if quest.percentage == 100 then
-                GlobalInit.RemoteEvents.PlayerClaimQuest:FireServer(quest.id)
-            end
+local function autoClaimQuests(questData)
+    for _, quest in ipairs(questData) do
+        if quest.percentage == 100 then
+            GlobalInit.RemoteEvents.PlayerClaimQuest:FireServer(quest.id)
         end
     end
-    local function isQuestsFolderEmpty()
-        for _, child in ipairs(questsFolder:GetChildren()) do
-            if not child:IsA("UIListLayout") then
-                return false
-            end
-        end
-        return true
-    end
-   
-    while true do
-        local questData = getQuestData()
-        autoClaimQuests(questData)
-        refreshQuestsIfEmpty(questData)
-        wait(5)
-    end
+end
+
+while true do
+    local questData = getQuestData()
+    autoClaimQuests(questData)
+    refreshQuestsIfEmpty()
+    wait(5)
 end
