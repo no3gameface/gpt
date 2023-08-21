@@ -1,3 +1,4 @@
+if _G.AutoQuestToggle then
 wait()
 local P = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
@@ -112,4 +113,5 @@ while true do
     autoClaimQuests(questData)
     refreshQuestsIfEmpty(questData)
     wait(5)
+end
 end
