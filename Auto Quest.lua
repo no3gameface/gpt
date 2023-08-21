@@ -103,7 +103,7 @@ local function createUI()
     end
     
     -- Find and store the time label AFTER creating the quest labels
-    refreshTimerLabel = questsFolder.Top.TimeLeft
+    refreshTimerLabel = questsFolder.Parent.Top.TimeLeft
 end
 
 
