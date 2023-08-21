@@ -1,5 +1,4 @@
-User
-so in this script could you add a feature so that it checks every 5 seconds if a quest has been claimed then obvcs removes it form the gui if its been claimed as its no longer there
+
 local P = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
 
