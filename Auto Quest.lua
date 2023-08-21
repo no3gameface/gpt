@@ -103,14 +103,14 @@ if _G.AutoQuestToggle then
             yOffset = yOffset + 70
         end
     end
-
-
+   
 local function getTimeLeftForRefresh()
     local timeLeftText = player.PlayerGui.MainGui.MainFrames.Quests.Top.TimeLeft.Text
     local time = timeLeftText:match("Refresh Available In (%d+:%d+:%d+)")
     return time
 end
 
+-- MODIFY the existing refreshQuestsIfEmpty function with this new version
 local function refreshQuestsIfEmpty()
     if isQuestsFolderEmpty() then
         local timeLeft = getTimeLeftForRefresh()
@@ -132,6 +132,7 @@ local function refreshQuestsIfEmpty()
 end
 
 
+
     
     local function autoClaimQuests(questData)
         for _, quest in ipairs(questData) do
@@ -148,10 +149,11 @@ end
         end
         return true
     end
-    
-while true do
-    local questData = getQuestData()
-    autoClaimQuests(questData)
-    refreshQuestsIfEmpty()
-    wait(5)
+   
+    while true do
+        local questData = getQuestData()
+        autoClaimQuests(questData)
+        refreshQuestsIfEmpty(questData)
+        wait(5)
+    end
 end
