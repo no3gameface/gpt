@@ -1,6 +1,6 @@
 local P = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
-
+wait(0.5)
 repeat wait() until P.LocalPlayer
 repeat wait() until P.LocalPlayer.Character
 repeat wait() until P.LocalPlayer.Character.HumanoidRootPart
