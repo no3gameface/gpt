@@ -1,3 +1,5 @@
+User
+so in this script could you add a feature so that it checks every 5 seconds if a quest has been claimed then obvcs removes it form the gui if its been claimed as its no longer there
 local P = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
 
@@ -10,9 +12,6 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local player = game:GetService("Players").LocalPlayer
 local questsFolder = player.PlayerGui.MainGui.MainFrames.Quests.Content
 local GlobalInit = ReplicatedStorage.Modules.GlobalInit
-
-local innerFrame
-local refreshTimerLabel -- Variable to store the time label
 
 local function getQuestData()
     local questData = {}
@@ -68,10 +67,11 @@ local function createUI()
     squareCorner.CornerRadius = UDim.new(0.1, 0)
     squareCorner.Parent = frame
 
-    innerFrame = Instance.new("Frame")
+    local innerFrame = Instance.new("Frame")
     innerFrame.Size = UDim2.new(0.98, 0, 0.98, 0)
     innerFrame.Position = UDim2.new(0.01, 0, 0.01, 0)
     innerFrame.BackgroundTransparency = 0
+    
     innerFrame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
     innerFrame.Parent = frame
 
@@ -101,39 +101,38 @@ local function createUI()
 
         yOffset = yOffset + 70
     end
-    
-    -- Find and store the time label AFTER creating the quest labels
-    refreshTimerLabel = questsFolder.Parent.Top.TimeLeft
 end
-
 
 createUI()
 
-local function formatTime(timeString)
-    local hours, minutes, seconds = timeString:match("(%d+):(%d+):(%d+)")
-    return string.format("%02d:%02d:%02d", tonumber(hours), tonumber(minutes), tonumber(seconds))
+
+local function autoClaimQuests(questData)
+    for _, quest in ipairs(questData) do
+        if quest.percentage == 100 then
+            GlobalInit.RemoteEvents.PlayerClaimQuest:FireServer(quest.id)
+        end
+    end
+end
+
+local function isQuestsFolderEmpty()
+    for _, child in ipairs(questsFolder:GetChildren()) do
+        if not child:IsA("UIListLayout") then
+            return false
+        end
+    end
+    return true
+end
+
+local function refreshQuestsIfEmpty()
+    if isQuestsFolderEmpty() then
+        print("Refreshing quests")
+        GlobalInit.RemoteEvents.PlayerRefreshQuests:FireServer()
+    end
 end
 
 while true do
     local questData = getQuestData()
-
-    -- Check for claimed quests and remove them from the GUI
-    for _, quest in ipairs(questData) do
-        if quest.percentage == 100 then
-            local questLabel = innerFrame:FindFirstChild(quest.title)
-            if questLabel then
-                questLabel:Destroy()
-            end
-        end
-    end
-
     autoClaimQuests(questData)
-
-    if isQuestsFolderEmpty() then
-        local timeLeftText = refreshTimerLabel.Text
-        local timeLeft = timeLeftText:match("(%d+:%d+:%d+)")
-        print("All quests done. Your next refresh is at:", formatTime(timeLeft))
-    end
-
+    refreshQuestsIfEmpty(questData)
     wait(5)
 end
