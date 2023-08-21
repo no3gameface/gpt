@@ -130,6 +130,17 @@ end
 
 while true do
     local questData = getQuestData()
+
+    -- Check for claimed quests and remove them from the GUI
+    for _, quest in ipairs(questData) do
+        if quest.percentage == 100 then
+            local questLabel = innerFrame:FindFirstChild(quest.title)
+            if questLabel then
+                questLabel:Destroy()
+            end
+        end
+    end
+
     autoClaimQuests(questData)
     refreshQuestsIfEmpty(questData)
     wait(5)
