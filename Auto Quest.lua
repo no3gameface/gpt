@@ -63,8 +63,7 @@ if _G.AutoQuestToggle then
             questLabel.Size = UDim2.new(1, 0, 0, 60)
             questLabel.Position = UDim2.new(0, 0, 0, yOffset)  -- Set the position based on yOffset
             questLabel.BackgroundTransparency = 1
-            local winsNeeded = math.ceil(100 / quest.percentage) - 1
-            questLabel.Text = quest.title .. ": " .. quest.percentage .. "%\nReward: " .. quest.reward .. "\nTotal Wins Needed: " .. winsNeeded
+            questLabel.Text = quest.title .. ": " .. quest.percentage .. "%\nReward: " .. quest.reward .. "\nDescription: " .. quest.description
             questLabel.TextWrapped = true
             questLabel.TextColor3 = Color3.new(1, 1, 1)
             questLabel.Parent = scrollFrame
