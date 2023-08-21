@@ -152,3 +152,4 @@ while true do
     refreshQuestsIfEmpty()
     wait(5)
 end
+end
