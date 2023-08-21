@@ -87,14 +87,23 @@ local function createUI()
         yOffset = yOffset + 70
     end
 end
+    
 createUI()
+
 local function autoClaimQuests(questData)
     for _, quest in ipairs(questData) do
         if quest.percentage == 100 then
             GlobalInit.RemoteEvents.PlayerClaimQuest:FireServer(quest.id)
+            
+            -- Remove the quest from the GUI if it's been claimed
+            local questGui = questsFolder:FindFirstChild(quest.id)
+            if questGui then
+                questGui:Destroy()
+            end
         end
     end
 end
+    
 local function isQuestsFolderEmpty()
     for _, child in ipairs(questsFolder:GetChildren()) do
         if not child:IsA("UIListLayout") then
@@ -103,15 +112,16 @@ local function isQuestsFolderEmpty()
     end
     return true
 end
+    
 local function refreshQuestsIfEmpty()
     if isQuestsFolderEmpty() then
         GlobalInit.RemoteEvents.PlayerRefreshQuests:FireServer()
     end
 end
+    
 while true do
     local questData = getQuestData()
     autoClaimQuests(questData)
     refreshQuestsIfEmpty(questData)
     wait(5)
-end
 end
