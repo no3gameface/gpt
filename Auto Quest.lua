@@ -101,10 +101,11 @@ local function createUI()
 
         yOffset = yOffset + 70
     end
-
-    -- Find and store the time label
-    refreshTimerLabel = questsFolder.Parent.Top.TimeLeft
+    
+    -- Find and store the time label AFTER creating the quest labels
+    refreshTimerLabel = questsFolder.Top.TimeLeft
 end
+
 
 createUI()
 
