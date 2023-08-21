@@ -1,4 +1,4 @@
-Task.wait()
+wait()
 local P = game:GetService("Players")
 local RS = game:GetService("ReplicatedStorage")
 
