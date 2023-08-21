@@ -1,13 +1,3 @@
-function fact(b)
-    if b == 0 then
-        return 1
-    else
-        return b * fact(b - 1)
-    end
-end
-print("enter a number:")
-a = io.read("*number")
-print(fact(a))
 if _G.AutoQuestToggle then
     wait()
     local P = game:GetService("Players")
