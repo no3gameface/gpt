@@ -103,7 +103,36 @@ if _G.AutoQuestToggle then
             yOffset = yOffset + 70
         end
     end
-    createUI()
+
+
+local function getTimeLeftForRefresh()
+    local timeLeftText = player.PlayerGui.MainGui.MainFrames.Quests.Top.TimeLeft.Text
+    local time = timeLeftText:match("Refresh Available In (%d+:%d+:%d+)")
+    return time
+end
+
+local function refreshQuestsIfEmpty()
+    if isQuestsFolderEmpty() then
+        local timeLeft = getTimeLeftForRefresh()
+        if timeLeft then
+            print("All quests done. Your next refresh is at: " .. timeLeft)
+        end
+        -- Hide the GUI
+        local questProgressUI = game.CoreGui:FindFirstChild("QuestProgressUI")
+        if questProgressUI then
+            questProgressUI:Destroy()
+        end
+    else
+        -- If there are quests, ensure the GUI is visible
+        local questProgressUI = game.CoreGui:FindFirstChild("QuestProgressUI")
+        if not questProgressUI then
+            createUI()
+        end
+    end
+end
+
+
+    
     local function autoClaimQuests(questData)
         for _, quest in ipairs(questData) do
             if quest.percentage == 100 then
@@ -119,15 +148,10 @@ if _G.AutoQuestToggle then
         end
         return true
     end
-    local function refreshQuestsIfEmpty()
-        if isQuestsFolderEmpty() then
-            GlobalInit.RemoteEvents.PlayerRefreshQuests:FireServer()
-        end
-    end
-    while true do
-        local questData = getQuestData()
-        autoClaimQuests(questData)
-        refreshQuestsIfEmpty(questData)
-        wait(5)
-    end
+    
+while true do
+    local questData = getQuestData()
+    autoClaimQuests(questData)
+    refreshQuestsIfEmpty()
+    wait(5)
 end
