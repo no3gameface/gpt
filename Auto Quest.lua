@@ -37,46 +37,40 @@ if _G.AutoQuestToggle then
 
         return questData
     end
+    local function createUI()
+        local screenGui = Instance.new("ScreenGui")
+        screenGui.Name = "QuestProgressUI"
+        screenGui.Parent = game.CoreGui
 
-local function createUI()
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "QuestProgressUI"
-    screenGui.Parent = game.CoreGui
+        local frame = Instance.new("Frame")
+        frame.Size = UDim2.new(0, 200, 0, 300)
+        frame.Position = UDim2.new(1, -220, 0.5, -150)
+        frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+        frame.BorderSizePixel = 0
+        frame.Parent = screenGui
 
-    local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0, 200, 0, 300)
-    frame.Position = UDim2.new(1, -220, 0.5, -150)
-    frame.BackgroundTransparency = 1  -- Make the background transparent
-    frame.Parent = screenGui
+        local scrollFrame = Instance.new("ScrollingFrame")
+        scrollFrame.Size = UDim2.new(1, 0, 1, -30)
+        scrollFrame.Position = UDim2.new(0, 0, 0, 30)
+        scrollFrame.Parent = frame
 
-    local border = Instance.new("Frame")
-    border.Size = UDim2.new(1, 10, 1, 10)  -- Add some padding for the border
-    border.Position = UDim2.new(0, -5, 0, -5)
-    border.BackgroundColor3 = Color3.new(0.6, 0, 0.6)  -- Purple color for the border
-    border.BorderSizePixel = 0
-    border.Parent = frame
+        local questData = getQuestData()
+        local yOffset = 0  -- Track the vertical offset
 
-    local scrollFrame = Instance.new("ScrollingFrame")
-    scrollFrame.Size = UDim2.new(1, -20, 1, -40)  -- Adjust size to fit inside the border
-    scrollFrame.Position = UDim2.new(0, 10, 0, 20)  -- Adjust position for padding
-    scrollFrame.Parent = border
+        for _, quest in ipairs(questData) do
+            local questLabel = Instance.new("TextLabel")
+            questLabel.Size = UDim2.new(1, 0, 0, 60)
+            questLabel.Position = UDim2.new(0, 0, 0, yOffset)  -- Set the position based on yOffset
+            questLabel.BackgroundTransparency = 1
+            questLabel.Text = quest.title .. ": " .. quest.percentage .. "%\nReward: " .. quest.reward .. "\nDescription: " .. quest.description
+            questLabel.TextWrapped = true
+            questLabel.TextColor3 = Color3.new(0, 0, 0)
+            questLabel.Parent = scrollFrame
 
-    local questData = getQuestData()
-    local yOffset = 0  -- Track the vertical offset
-
-    for _, quest in ipairs(questData) do
-        local questLabel = Instance.new("TextLabel")
-        questLabel.Size = UDim2.new(1, 0, 0, 60)
-        questLabel.Position = UDim2.new(0, 0, 0, yOffset)
-        questLabel.BackgroundTransparency = 1
-        questLabel.Text = quest.title .. ": " .. quest.percentage .. "%\nReward: " .. quest.reward .. "\nDescription: " .. quest.description
-        questLabel.TextWrapped = true
-        questLabel.TextColor3 = Color3.new(0, 0, 0)
-        questLabel.Parent = scrollFrame
-
-        yOffset = yOffset + 70
+            yOffset = yOffset + 70  -- Increment yOffset for the next label
+        end
     end
-end
+
     createUI()
 
     local function autoClaimQuests(questData)
