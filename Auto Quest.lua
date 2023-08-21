@@ -11,7 +11,8 @@ local player = game:GetService("Players").LocalPlayer
 local questsFolder = player.PlayerGui.MainGui.MainFrames.Quests.Content
 local GlobalInit = ReplicatedStorage.Modules.GlobalInit
 
-local innerFrame -- Define innerFrame in a higher scope
+local innerFrame
+local refreshTimerLabel -- Variable to store the time label
 
 local function getQuestData()
     local questData = {}
@@ -67,7 +68,7 @@ local function createUI()
     squareCorner.CornerRadius = UDim.new(0.1, 0)
     squareCorner.Parent = frame
 
-    innerFrame = Instance.new("Frame")  -- Assign to the outer variable
+    innerFrame = Instance.new("Frame")
     innerFrame.Size = UDim2.new(0.98, 0, 0.98, 0)
     innerFrame.Position = UDim2.new(0.01, 0, 0.01, 0)
     innerFrame.BackgroundTransparency = 0
@@ -100,59 +101,38 @@ local function createUI()
 
         yOffset = yOffset + 70
     end
+
+    -- Find and store the time label
+    refreshTimerLabel = questsFolder.Top.TimeLeft
 end
 
 createUI()
 
-
-
-local function autoClaimQuests(questData)
-    for _, quest in ipairs(questData) do
-        if quest.percentage == 100 then
-            GlobalInit.RemoteEvents.PlayerClaimQuest:FireServer(quest.id)
-        end
-    end
-end
-
-local function isQuestsFolderEmpty()
-    for _, child in ipairs(questsFolder:GetChildren()) do
-        if not child:IsA("UIListLayout") then
-            return false
-        end
-    end
-    return true
-end
-
-local function refreshQuestsIfEmpty()
-    if isQuestsFolderEmpty() then
-        print("Refreshing quests")
-        GlobalInit.RemoteEvents.PlayerRefreshQuests:FireServer()
-    end
+local function formatTime(timeString)
+    local hours, minutes, seconds = timeString:match("(%d+):(%d+):(%d+)")
+    return string.format("%02d:%02d:%02d", tonumber(hours), tonumber(minutes), tonumber(seconds))
 end
 
 while true do
-    local success, error = pcall(function()
-        local questData = getQuestData()
+    local questData = getQuestData()
 
-        -- Check for claimed quests and remove them from the GUI
-        for _, quest in ipairs(questData) do
-            if quest.percentage == 100 then
-                local questLabel = innerFrame:FindFirstChild(quest.title)
-                if questLabel then
-                    questLabel:Destroy()
-                end
+    -- Check for claimed quests and remove them from the GUI
+    for _, quest in ipairs(questData) do
+        if quest.percentage == 100 then
+            local questLabel = innerFrame:FindFirstChild(quest.title)
+            if questLabel then
+                questLabel:Destroy()
             end
         end
+    end
 
-        autoClaimQuests(questData)
-        refreshQuestsIfEmpty(questData)
-    end)
+    autoClaimQuests(questData)
 
-    if not success then
-        print("An error occurred:", error)
+    if isQuestsFolderEmpty() then
+        local timeLeftText = refreshTimerLabel.Text
+        local timeLeft = timeLeftText:match("(%d+:%d+:%d+)")
+        print("All quests done. Your next refresh is at:", formatTime(timeLeft))
     end
 
     wait(5)
 end
-
-
