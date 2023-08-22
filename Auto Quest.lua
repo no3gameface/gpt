@@ -64,7 +64,7 @@ if _G.AutoQuestToggle then
             ColorSequenceKeypoint.new(0, Color3.fromRGB(89, 196, 255)),
             ColorSequenceKeypoint.new(0.25, Color3.fromRGB(155, 129, 255)),
             ColorSequenceKeypoint.new(0.5, Color3.fromRGB(223, 157, 255)),
-            ColorSequenceKeypoint.new(0.75, Color3.fromRGB(206, 182, 255)),
+            ColorSequenceKeypoint.new(0.75, Color3.fromRGB(245, 224, 66)),
             ColorSequenceKeypoint.new(1, Color3.fromRGB(188, 239, 255))
         }
         borderGradient.Parent = frame
