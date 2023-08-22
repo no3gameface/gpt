@@ -40,7 +40,7 @@ if game.PlaceId == 5902977746 then
     local id = game.Players.LocalPlayer.UserId
 
     -- hacker stuff
-  for i = calculatedDifference, 1 do
+  for i = 1 , calculatedDifference do
    	 print(i)
         stuff("PlayerCatchFish", id)
         wait(10)
