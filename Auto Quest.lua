@@ -1,5 +1,5 @@
 if _G.AutoQuestToggle then
-    wait()
+ 
     local P = game:GetService("Players")
     local RS = game:GetService("ReplicatedStorage")
     repeat
