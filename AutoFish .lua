@@ -41,7 +41,7 @@ if game.PlaceId == 5902977746 then
 
     -- hacker stuff
     for i = 1, calculatedDifference do
-	print(calculatedDifference"
+	print(calculatedDifference)
         stuff("PlayerCatchFish", id)
         wait(10)
     end
