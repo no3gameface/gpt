@@ -43,7 +43,7 @@ if game.PlaceId == 5902977746 then
   for i = 1 , calculatedDifference do
    	 print(i)
         stuff("PlayerCatchFish", id)
-        wait(10)
+        wait(10.5)
     end
 end
 end
