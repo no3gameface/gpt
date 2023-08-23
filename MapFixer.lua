@@ -1,5 +1,5 @@
-if game.PlaceId == 5902977746 then
-    if _G.MapFixerToggle then
+if _G.MapFixerToggle then
+    if game.PlaceId == 5902977746 then
         -- Wait for the local character to exist
         local player = game:GetService("Players").LocalPlayer
         repeat wait() until player.Character
