@@ -1,5 +1,5 @@
-if _G.AutoFishToggle then
 
+if _G.AutoFishToggle then
 
 if game.PlaceId == 5902977746 then
     local P = game:GetService("Players")
@@ -40,10 +40,10 @@ if game.PlaceId == 5902977746 then
     local id = game.Players.LocalPlayer.UserId
 
     -- hacker stuff
-  for i = calculatedDifference, 1 do
+for i = calculatedDifference, 1, -1 do
     print(i)
-        stuff("PlayerCatchFish", id)
-        wait(10.5)
-    end
+    stuff("PlayerCatchFish", id)
+    wait(10.1)
+end
 end
 end
