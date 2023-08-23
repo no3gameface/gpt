@@ -23,7 +23,7 @@ if _G.MapFixerToggle then
                 end
 
                 -- Delete the children under workspace.Map
-                for _, child in pairs(mapPath:GetChildren()) do
+                for _, child in pairs(workspace.Map:GetChildren()) do
                     child:Destroy()
                 end
 
