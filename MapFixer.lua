@@ -1,4 +1,5 @@
 if _G.MapFixerToggle then
+-- Wait for the local character to exist
 local player = game:GetService("Players").LocalPlayer
 repeat wait() until player.Character
 print("Local character exists")
@@ -28,6 +29,14 @@ if globalEnv.serverType == "Match" then
         print("Children under workspace.Map.Path cloned and original children under workspace.Map deleted")
     else
         print("workspace.Map.Path does not exist, exiting...")
+    end
+
+    -- Enable auto skip
+    local RS = game:GetService("ReplicatedStorage")
+    RS.Modules.GlobalInit.RemoteEvents:WaitForChild("PlayerReadyForNextWave")
+    while wait() do
+        RS.Modules.GlobalInit.RemoteEvents.PlayerReadyForNextWave:FireServer()
+        print("Firing PlayerReadyForNextWave event") -- Debugging print
     end
 else
     print("Server type is not Match, exiting...")
