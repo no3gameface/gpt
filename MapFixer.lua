@@ -35,10 +35,10 @@ if _G.MapFixerToggle then
             -- Enable auto skip
             local RS = game:GetService("ReplicatedStorage")
             RS.Modules.GlobalInit.RemoteEvents:WaitForChild("PlayerReadyForNextWave")
-            while wait() do
+           
                 RS.Modules.GlobalInit.RemoteEvents.PlayerReadyForNextWave:FireServer()
                 print("Firing PlayerReadyForNextWave event") -- Debugging print
-            end
+            
         else
             print("Server type is not Match, exiting...")
         end
