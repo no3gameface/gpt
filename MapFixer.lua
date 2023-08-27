@@ -35,7 +35,8 @@ if _G.MapFixerToggle then
                             v.Texture:Destroy()
                         else
                             local originalSize = v.Size
-                            v.Size = Vector3.new(originalSize.X * 1000, originalSize.Y, originalSize.Z * 1000)
+                            -- Adding 1000 to the original X and Z dimensions
+                            v.Size = Vector3.new(originalSize.X + 1000, originalSize.Y, originalSize.Z + 1000)
                         end
                     end
                 end
