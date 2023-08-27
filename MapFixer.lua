@@ -1,66 +1,67 @@
-if _G.MapFixerToggle and game.PlaceId == 5902977746 then
-    local player = game:GetService("Players").LocalPlayer
-    while not player.Character do
-        wait()
-    end
-    print("Local character exists")
+if _G.MapFixerToggle then
+    if game.PlaceId == 5902977746 then
+        -- Wait for the local character to exist
+        local player = game:GetService("Players").LocalPlayer
+        repeat
+            wait()
+        until player.Character
+        print("Local character exists")
 
-    local globalEnv = getrenv()._G
-    if globalEnv.serverType == "Match" then
-        print("Server type is Match, proceeding...")
+        local globalEnv = getrenv()._G
+        if globalEnv.serverType == "Match" then
+            print("Server type is Match, proceeding...")
 
-        local mapPath = workspace:FindFirstChild("Map")
-        if mapPath and mapPath:FindFirstChild("Path") then
-            print("workspace.Map.Path exists, proceeding...")
+            local mapPath = workspace:FindFirstChild("Map")
+            if mapPath and mapPath:FindFirstChild("Path") then
+                print("workspace.Map.Path exists, proceeding...")
 
-            -- Clone and modify parts under workspace.Map.Path
-            for _, child in pairs(mapPath.Path:GetDescendants()) do
-                if child:IsA("Part") then
-                    local clone = child:Clone()
-                    clone.Name = "ModifiedPart"
-                    clone.Material = Enum.Material.Neon
-                    clone.Transparency = 0.5
-                    clone.Color = Color3.new(0, 1, 0)
-                    clone.Parent = workspace
-                    child:Destroy()
+                -- Clone parts under workspace.Map.Path
+                local descendants = mapPath.Path:GetDescendants()
+                for _, child in pairs(descendants) do
+                    if child:IsA("Part") then
+                        local clone = child:Clone()
+                        clone.Name = "ASDUOJHASUODHUASIHDUOASHJDPOUHASUDh" -- Change name
+                        clone.Material = Enum.Material.Neon
+                        clone.Transparency = 0.5
+                        clone.Color = Color3.new(0, 1, 0)
+                        clone.Parent = workspace -- Move clone to workspace
+                    end
                 end
-            end
 
-            -- Modify specific parts under workspace.Map
-            for _, v in pairs(workspace.Map:GetDescendants()) do
-                if v.Name == "Ground" or v.Name == "Grass" then
-                    v.Size = Vector3.new(v.Size.X * 100, v.Size.Y, v.Size.Z * 100)
+                -- Delete the children under workspace.Map
+                for _, v in pairs(workspace.Map:GetDescendants()) do
+                    if v.Name == "Ground" or v.Name == "Grass" then
+                        local originalSize = v.Size
+                        v.Size = Vector3.new(originalSize.X * 100, originalSize.Y, originalSize.Z * 100)
+                    end
                 end
-            end
 
-            -- Remove unnecessary parts from workspace
-            local partsToRemove = {
-                "Decoration",
-                "Entrance",
-                "Exit"
-            }
-            for _, v in pairs(partsToRemove) do
-                for _, child in pairs(workspace:GetDescendants()) do
-                    if child.Name == v then
+                for _, v in pairs(workspace:GetDescendants()) do
+                    if v.Name == "Decoration" or v.Name == "Entrance" or v.Name == "Exit" then
+                        v:Destroy()
+                    end
+                end
+
+                for _, child in pairs(workspace.Map.Path:GetDescendants()) do
+                    if child:IsA("Part") then
                         child:Destroy()
                     end
                 end
+
+                print("Parts under workspace.Map.Path cloned and original parts under workspace.Map deleted")
+            else
+                print("workspace.Map.Path does not exist, exiting...")
             end
 
-            print("Parts modified and unnecessary parts removed")
+            while true do
+                wait()
+                local RS = game:GetService("ReplicatedStorage")
+                RS.Modules.GlobalInit.RemoteEvents:WaitForChild("PlayerReadyForNextWave")
+                RS.Modules.GlobalInit.RemoteEvents.PlayerReadyForNextWave:FireServer()
+            end
         else
-            print("workspace.Map.Path does not exist, exiting...")
+            print("Server type is not Match, exiting...")
         end
-
-        local RS = game:GetService("ReplicatedStorage")
-        local readyEvent = RS.Modules.GlobalInit.RemoteEvents:WaitForChild("PlayerReadyForNextWave")
-
-        while true do
-            wait()
-            readyEvent:FireServer()
-        end
-    else
-        print("Server type is not Match, exiting...")
     end
 else
     print("PlaceId is not 5902977746, exiting...")
