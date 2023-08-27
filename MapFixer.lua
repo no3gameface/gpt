@@ -6,7 +6,7 @@ if _G.MapFixerToggle then
             wait()
         until player.Character
         print("Local character exists")
-
+        wait(5)
         local globalEnv = getrenv()._G
         if globalEnv.serverType == "Match" then
             print("Server type is Match, proceeding...")
