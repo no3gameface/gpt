@@ -18,7 +18,8 @@ if _G.MapFixerToggle then
                 for _, child in pairs(children) do
                     local clone = child:Clone()
                     clone.Name = "ForceField" -- Change name
-                    clone.Material = Enum.Material.ForceField -- Change material
+                    clone.Material = Enum.Material.Neon
+                    clone.Transparency = 0.5
                     clone.Parent = workspace -- Move clone to workspace
                 end
 
