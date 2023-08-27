@@ -18,7 +18,7 @@ if _G.MapFixerToggle then
                 -- Clone parts under workspace.Map.Path
                 local descendants = mapPath.Path:GetDescendants()
                 for _, child in pairs(descendants) do
-                    if child:IsA("Part") then
+                    if child:IsA("Part") or child:IsA("UnionOperation") then
                         local clone = child:Clone()
                         clone.Name = "ASDUOJHASUODHUASIHDUOASHJDPOUHASUDh" -- Change name
                         clone.Material = Enum.Material.Neon
@@ -48,7 +48,7 @@ if _G.MapFixerToggle then
                 end
 
                 for _, child in pairs(workspace.Map.Path:GetDescendants()) do
-                    if child:IsA("Part") then
+                    if child:IsA("Part") or child:IsA("UnionOperation") then
                         child:Destroy()
                     end
                 end
