@@ -27,8 +27,9 @@ if _G.MapFixerToggle then
                 -- Delete the children under workspace.Map
                 local decorations = workspace:FindDescendantsByName("Decoration")
 
-                for _, decoration in pairs(decorations) do
-                    decoration:Destroy()
+               for _, v in pairs(workspace:GetDescendants()) do
+                    if v.Name = "Decoration" or if v.Name = "Decoration" then
+                            v:Destroy()
                 end
                 for _, child in pairs(workspace.Map.Path:GetChildren()) do
                     child:Destroy()
