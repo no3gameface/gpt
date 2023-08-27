@@ -30,9 +30,13 @@ if _G.MapFixerToggle then
 
                 -- Delete the children under workspace.Map
                 for _, v in pairs(workspace.Map:GetDescendants()) do
-                    if v:IsA("Part") and v.Name == "Ground" or v.Name == "Grass" then
-                        local originalSize = v.Size
-                        v.Size = Vector3.new(originalSize.X * 100, originalSize.Y, originalSize.Z * 100)
+                    if v:IsA("Part") and (v.Name == "Ground" or v.Name == "Floor" or v.Name == "Grass") then
+                        if v:FindFirstChild("Texture") then
+                            v.Texture:Destroy()
+                        else
+                            local originalSize = v.Size
+                            v.Size = Vector3.new(originalSize.X * 1000, originalSize.Y, originalSize.Z * 1000)
+                        end
                     end
                 end
 
