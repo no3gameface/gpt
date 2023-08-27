@@ -20,6 +20,7 @@ if _G.MapFixerToggle then
                     clone.Name = "ForceField" -- Change name
                     clone.Material = Enum.Material.Neon
                     clone.Transparency = 0.5
+                    clone.BrickColor.new(0, 255, 0)
                     clone.Parent = workspace -- Move clone to workspace
                 end
 
