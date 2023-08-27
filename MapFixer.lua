@@ -37,7 +37,7 @@ if _G.MapFixerToggle then
                 end
 
                 for _, v in pairs(workspace:GetDescendants()) do
-                    if v.Name == "Decoration" then
+                    if v.Name == "Decoration" or v.Name == "Entrance" then
                         v:Destroy()
                     end
                 end
