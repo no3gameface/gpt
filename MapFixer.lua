@@ -32,7 +32,7 @@ if _G.MapFixerToggle then
                 for _, v in pairs(workspace.Map:GetDescendants()) do
                     if v.Name == "Ground" or v.Name == "Grass" then
                         local originalSize = v.Size
-                        v.Size = Vector3.new(originalSize.X * 1000, originalSize.Y, originalSize.Z * 1000)
+                        v.Size = Vector3.new(originalSize.X * 100, originalSize.Y, originalSize.Z * 100)
                     end
                 end
 
