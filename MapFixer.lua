@@ -25,6 +25,11 @@ if _G.MapFixerToggle then
                 end
 
                 -- Delete the children under workspace.Map
+                local decorations = workspace:FindDescendantsByName("Decoration")
+
+                for _, decoration in pairs(decorations) do
+                    decoration:Destroy()
+                end
                 for _, child in pairs(workspace.Map.Path:GetChildren()) do
                     child:Destroy()
                 end
@@ -34,12 +39,12 @@ if _G.MapFixerToggle then
                 print("workspace.Map.Path does not exist, exiting...")
             end
 
-            -- Enable auto skip
+           whiel true do 
             local RS = game:GetService("ReplicatedStorage")
             RS.Modules.GlobalInit.RemoteEvents:WaitForChild("PlayerReadyForNextWave")
            
                 RS.Modules.GlobalInit.RemoteEvents.PlayerReadyForNextWave:FireServer()
-                print("Firing PlayerReadyForNextWave event") -- Debugging print
+              end
             
         else
             print("Server type is not Match, exiting...")
