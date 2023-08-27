@@ -58,12 +58,7 @@ if _G.MapFixerToggle then
                 print("workspace.Map.Path does not exist, exiting...")
             end
 
-            while true do
-                wait()
-                local RS = game:GetService("ReplicatedStorage")
-                RS.Modules.GlobalInit.RemoteEvents:WaitForChild("PlayerReadyForNextWave")
-                RS.Modules.GlobalInit.RemoteEvents.PlayerReadyForNextWave:FireServer()
-            end
+           
         else
             print("Server type is not Match, exiting...")
         end
