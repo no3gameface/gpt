@@ -20,7 +20,7 @@ if _G.MapFixerToggle then
                 for _, child in pairs(descendants) do
                     if child:IsA("Part") then
                         local clone = child:Clone()
-                        clone.Name = "ForceField" -- Change name
+                        clone.Name = "ASDUOJHASUODHUASIHDUOASHJDPOUHASUDh" -- Change name
                         clone.Material = Enum.Material.Neon
                         clone.Transparency = 0.5
                         clone.Color = Color3.new(0, 1, 0)
